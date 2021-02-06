@@ -14,7 +14,8 @@ class BooksController < ApplicationController
                                 }
                               }, '_source' => ['_id']
                             })
-      @books = Book.where(id: results['hits']['hits'].pluck('_id'))
+      book_ids = results['hits']['hits'].pluck('_id')
+      @books = Book.where(id: book_ids)
     else
       @books = Book.all
     end
