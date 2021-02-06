@@ -1,24 +1,22 @@
-# README
+# Book Store ES
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Trying to setup Elasticsearch with in Rails without any gem.
 
-Things you may want to cover:
+## To init the project
 
-* Ruby version
+```bash
+docker-compose up -d
+bin/rails db:create
+bin/rails db:migrate
+bin/rails db:seed
+```
 
-* System dependencies
+## Initial command used to create the project
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```bash
+rails new book_store_es -C -T --skip-active-storage --skip-action-text --skip-action-mailbox --skip-action-mailer
+bin/rails g scaffold author first_name:string last_name:string
+bin/rails g scaffold book title:string synopsis:string author:references publication_date:date
+bin/rails g scaffold genre label:string
+bin/rails g model GenreBook book:references genre:references
+```
