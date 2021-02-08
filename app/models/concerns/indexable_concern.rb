@@ -4,8 +4,7 @@ module IndexableConcern
   extend ActiveSupport::Concern
 
   included do
-    after_save_commit :update_index
-    after_destroy_commit :destroy_index
+    after_commit :update_index
   end
 
   class_methods do
@@ -20,9 +19,5 @@ module IndexableConcern
 
   def update_index
     ReindexJob.import(self)
-  end
-
-  def destroy_index
-    ReindexJob.destroy(self)
   end
 end

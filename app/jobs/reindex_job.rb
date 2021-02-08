@@ -9,10 +9,7 @@ class ReindexJob < ApplicationJob
   end
 
   def self.import(record)
-    new.perform(record.class.index_name, record.id, :put, record.to_json)
-  end
-
-  def self.destroy(record)
-    new.perform(record.class.index_name, record.id, :delete, record.to_json)
+    method = record.destroyed? ? :delete : :put
+    new.perform(record.class.index_name, record.id, method, record.to_json)
   end
 end

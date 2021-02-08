@@ -8,9 +8,8 @@ class BooksController < ApplicationController
     if params[:query].present?
       results = Book.search({
                               "query": {
-                                "multi_match": {
-                                  "query": params[:query],
-                                  "fields": %w[title* author.name synopsis genres]
+                                "query_string": {
+                                  "query": params[:query]
                                 }
                               }, '_source' => ['_id']
                             })
